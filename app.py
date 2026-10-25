@@ -449,26 +449,51 @@ with tab_cleaning:
 
         # Outlier Detection Plot
         st.markdown(f"##### 3-Sigma Daily Return Outlier Detection ({selected_ticker})")
+        if "Daily_Return" not in df_cleaned.columns:
+            df_cleaned["Daily_Return"] = df_cleaned["Close"].pct_change()
+
         if "Outlier_Flag" in df_cleaned.columns and "Daily_Return" in df_cleaned.columns:
+            ret_series = df_cleaned["Daily_Return"].dropna()
+            ret_mean = float(ret_series.mean())
+            ret_std = float(ret_series.std())
+            upper_bound = ret_mean + 3 * ret_std
+            lower_bound = ret_mean - 3 * ret_std
+
             normal_mask = ~df_cleaned["Outlier_Flag"]
             outlier_mask = df_cleaned["Outlier_Flag"]
 
             fig_out = go.Figure()
+            # Normal returns
             fig_out.add_trace(go.Scatter(
                 x=df_cleaned.index[normal_mask],
                 y=df_cleaned.loc[normal_mask, "Daily_Return"],
                 mode="markers",
-                marker=dict(color="#3B82F6", size=4, opacity=0.6),
-                name="Normal Days"
+                marker=dict(color="#3B82F6", size=5, opacity=0.6),
+                name="Normal Trading Days",
+                hovertemplate="%{x|%Y-%m-%d}<br>Return: %{y:.2%}<extra></extra>",
             ))
+            # Outliers
             fig_out.add_trace(go.Scatter(
                 x=df_cleaned.index[outlier_mask],
                 y=df_cleaned.loc[outlier_mask, "Daily_Return"],
                 mode="markers",
-                marker=dict(color="#DC2626", size=8, symbol="x"),
-                name=f"Outliers (>3σ): {outlier_mask.sum()} days"
+                marker=dict(color="#DC2626", size=9, symbol="x", line=dict(width=2, color="#DC2626")),
+                name=f"Outliers (|Z| > 3): {outlier_mask.sum()} days",
+                hovertemplate="%{x|%Y-%m-%d}<br>Outlier Return: %{y:.2%}<extra></extra>",
             ))
-            fig_out.update_layout(height=320, template="plotly_white", margin=dict(l=10, r=10, t=20, b=20))
+            # 3-sigma thresholds
+            fig_out.add_hline(y=upper_bound, line_dash="dash", line_color="#EF4444", annotation_text=f"+3σ ({upper_bound:.1%})", annotation_position="top right")
+            fig_out.add_hline(y=lower_bound, line_dash="dash", line_color="#EF4444", annotation_text=f"-3σ ({lower_bound:.1%})", annotation_position="bottom right")
+            fig_out.add_hline(y=ret_mean, line_dash="dot", line_color="#9CA3AF", annotation_text=f"Mean ({ret_mean:.2%})", annotation_position="bottom left")
+
+            fig_out.update_layout(
+                height=350,
+                template="plotly_white",
+                yaxis_title="Daily Return",
+                yaxis_tickformat=".1%",
+                margin=dict(l=10, r=10, t=30, b=20),
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            )
             st.plotly_chart(fig_out, use_container_width=True)
 
     # Full Cleaning Audit Table
