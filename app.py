@@ -4,7 +4,7 @@ Stock Market Daily Trade Normalizer (ML_6)
 Interactive Streamlit Web Dashboard
 
 Mapping: Experiment 1, 2 -- Data Preprocessing
-Team: Om Bijwani (24ESKCY036) + Partner (B240296)
+Team: Rishab Khandelwal (24ESKCY043) & Om Bijwani (24ESKCY036)
 """
 
 import os
@@ -150,8 +150,8 @@ with col_info:
     st.markdown(
         """
         <div style="text-align: right; font-size: 0.85rem; color: #64748B;">
+            <b>Student 1:</b> Rishab Khandelwal (24ESKCY043)<br>
             <b>Student 2:</b> Om Bijwani (24ESKCY036)<br>
-            <b>Partner:</b> B240296<br>
             <b>Status:</b> <span style="color:#16A34A; font-weight:600;">Pipeline Active [OK]</span>
         </div>
         """,

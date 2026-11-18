@@ -2,7 +2,7 @@
 
 > **Project ID:** ML_6  
 > **Mapping:** Experiment 1, 2 — Data Preprocessing  
-> **Team:** Om Bijwani (24ESKCY036) + Partner (B240296)
+> **Team:** Student 1: Rishab Khandelwal (24ESKCY043) | Student 2: Om Bijwani (24ESKCY036)
 
 ## 📋 Description
 

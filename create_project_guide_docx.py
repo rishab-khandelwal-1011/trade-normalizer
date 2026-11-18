@@ -147,7 +147,7 @@ def generate_document(output_path: str):
         ("Project Identifier", "ML_6 (Stock Market Daily Trade Normalizer)"),
         ("Curriculum Mapping", "Experiment 1 & 2 -- Data Preprocessing & Feature Engineering"),
         ("Institution", "Swami Keshvanand Institute of Technology (SKIT), Jaipur"),
-        ("Student Team", "Om Bijwani (Roll: 24ESKCY036 | Email: B241243@skit.ac.in)\nPartner Email: B240296@skit.ac.in"),
+        ("Student Team", "Student 1: Rishab Khandelwal (Roll: 24ESKCY043)\nStudent 2: Om Bijwani (Roll: 24ESKCY036)"),
         ("Target Universe", "Nifty 50 Constituent Blue-Chip Stocks (NSE)"),
         ("Temporal Coverage", "5 Full Years of Daily OHLCV Records (2021 to 2026)"),
     ]
